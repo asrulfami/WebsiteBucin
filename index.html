@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#09080d" />
+    <title>Our Monochrome Story ❤️</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
+  </head>
+
+  <body class="page-locked">
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+    <div class="noise" aria-hidden="true"></div>
+
+    <section id="opening" class="opening">
+      <div class="opening-aurora opening-aurora-one"></div>
+      <div class="opening-aurora opening-aurora-two"></div>
+      <div class="opening-grid" aria-hidden="true"></div>
+
+      <div class="opening-polaroid opening-photo-one" aria-hidden="true">
+        <img src="assets/images/1.jpg" alt="" />
+      </div>
+
+      <div class="opening-polaroid opening-photo-two" aria-hidden="true">
+        <img src="assets/images/4.jpg" alt="" />
+      </div>
+
+      <div class="opening-polaroid opening-photo-three" aria-hidden="true">
+        <img src="assets/images/8.jpg" alt="" />
+      </div>
+
+      <div class="opening-content">
+        <p class="eyebrow">A MONOCHROME STORY ABOUT US</p>
+
+        <h1>
+          Ada sesuatu
+          <span>yang ingin aku simpan.</span>
+        </h1>
+
+        <p class="opening-description">
+          Sepuluh foto, satu lagu, dan banyak hal kecil yang tidak ingin
+          kulupakan.
+        </p>
+
+        <button id="startButton" class="start-button" type="button">
+          <span class="start-label">Buka Cerita Kita</span>
+          <span class="start-icon">♥</span>
+        </button>
+
+        <p id="startHint" class="hint">
+          Pakai earphone agar ceritanya terasa lebih dekat 🎧
+        </p>
+      </div>
+
+      <div class="opening-bottom">
+        <span>MONOKROM</span>
+        <span>TULUS</span>
+      </div>
+    </section>
+
+    <main id="mainContent" class="main-content hidden">
+      <section id="cinematic" class="cinematic">
+        <div id="backgroundA" class="dynamic-background is-active"></div>
+        <div id="backgroundB" class="dynamic-background"></div>
+        <div class="background-aurora"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="cinematic-lines"></div>
+
+        <header class="top-info">
+          <div class="story-info">
+            <p class="story-label">OUR MONOCHROME STORY</p>
+            <p id="photoCounter" class="photo-counter">01 / 10</p>
+          </div>
+        </header>
+
+        <div class="photo-area">
+          <div
+            id="leftFloating"
+            class="floating-photo left-floating"
+            aria-hidden="true"
+          >
+            <div class="floating-inner">
+              <img id="leftImage" src="assets/images/2.jpg" alt="" />
+            </div>
+          </div>
+
+          <div id="mainFrame" class="main-frame">
+            <div class="frame-glow"></div>
+            <img id="mainImage" src="assets/images/1.jpg" alt="Kenangan kita" />
+            <div class="frame-shine"></div>
+            <div class="frame-number" id="frameNumber">01</div>
+          </div>
+
+          <div
+            id="rightFloating"
+            class="floating-photo right-floating"
+            aria-hidden="true"
+          >
+            <div class="floating-inner">
+              <img id="rightImage" src="assets/images/3.jpg" alt="" />
+            </div>
+          </div>
+
+          <div id="caption" class="caption">
+            <p id="sceneLabel" class="scene-label">BEFORE THE FIRST NOTE</p>
+            <h2 id="sceneTitle">Sebelum semuanya menjadi kenangan...</h2>
+            <p id="sceneDescription">
+              aku ingin menyimpan versi kita yang paling sederhana.
+            </p>
+          </div>
+
+          <div id="lyricCard" class="lyric-card">
+            <span class="lyric-symbol">♫</span>
+            <p id="lyricLine">Cerita ini akan dimulai bersama lagunya.</p>
+            <p id="personalLine">Untuk seseorang yang selalu memberi warna.</p>
+          </div>
+        </div>
+
+        <div class="music-area">
+          <div class="music-info">
+            <div>
+              <span class="music-title">Monokrom</span>
+              <span class="music-artist">Tulus</span>
+            </div>
+
+            <div class="time-display">
+              <span id="timeText">00:00 / 03:35</span>
+              <span id="preciseTime">0.00s</span>
+            </div>
+          </div>
+
+          <div class="music-control-row">
+            <div class="music-buttons">
+              <button
+                id="rewindButton"
+                class="music-action-button"
+                type="button"
+                title="Mundur 5 detik"
+              >
+                ↶5
+              </button>
+
+              <button
+                id="playButton"
+                class="music-action-button music-play-button"
+                type="button"
+                title="Play / Pause"
+              >
+                <span id="playIcon">Ⅱ</span>
+              </button>
+
+              <button
+                id="forwardButton"
+                class="music-action-button"
+                type="button"
+                title="Maju 5 detik"
+              >
+                5↷
+              </button>
+
+              <button
+                id="soundButton"
+                class="music-action-button"
+                type="button"
+                title="Mute"
+              >
+                <span id="soundIcon">♫</span>
+              </button>
+            </div>
+
+            <button
+              id="progressContainer"
+              class="progress-container"
+              type="button"
+              aria-label="Pindahkan posisi lagu"
+            >
+              <span id="progressBar" class="progress-bar"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="swipe-hint">
+          <span></span>
+          Scroll untuk melihat semua kenangan
+        </div>
+      </section>
+
+      <section class="gallery-section">
+        <div class="section-orb section-orb-one"></div>
+        <div class="section-orb section-orb-two"></div>
+
+        <div class="gallery-title reveal">
+          <p class="eyebrow">LITTLE PIECES OF US</p>
+          <h2>
+            Sepuluh foto.
+            <span>Seribu rasa.</span>
+          </h2>
+          <p>
+            Beberapa momen terlihat biasa. Tapi ketika ada kamu di dalamnya,
+            semuanya berubah menjadi sesuatu yang ingin aku simpan lebih lama.
+          </p>
+        </div>
+
+        <div class="gallery">
+          <button class="gallery-item reveal" data-index="0" type="button">
+            <img src="assets/images/1.jpg" alt="Kenangan 1" loading="lazy" />
+            <span class="gallery-number">01</span>
+            <span class="gallery-caption">The beginning</span>
+          </button>
+
+          <button class="gallery-item reveal" data-index="1" type="button">
+            <img src="assets/images/2.jpg" alt="Kenangan 2" loading="lazy" />
+            <span class="gallery-number">02</span>
+            <span class="gallery-caption">Little moments</span>
+          </button>
+
+          <button class="gallery-item tall reveal" data-index="2" type="button">
+            <img src="assets/images/3.jpg" alt="Kenangan 3" loading="lazy" />
+            <span class="gallery-number">03</span>
+            <span class="gallery-caption">A familiar warmth</span>
+          </button>
+
+          <button class="gallery-item wide reveal" data-index="3" type="button">
+            <img src="assets/images/4.jpg" alt="Kenangan 4" loading="lazy" />
+            <span class="gallery-number">04</span>
+            <span class="gallery-caption">Colorful memories</span>
+          </button>
+
+          <button class="gallery-item reveal" data-index="4" type="button">
+            <img src="assets/images/5.jpg" alt="Kenangan 5" loading="lazy" />
+            <span class="gallery-number">05</span>
+            <span class="gallery-caption">Thank you</span>
+          </button>
+
+          <button class="gallery-item reveal" data-index="5" type="button">
+            <img src="assets/images/6.jpg" alt="Kenangan 6" loading="lazy" />
+            <span class="gallery-number">06</span>
+            <span class="gallery-caption">Quiet nights</span>
+          </button>
+
+          <button class="gallery-item wide reveal" data-index="6" type="button">
+            <img src="assets/images/7.jpg" alt="Kenangan 7" loading="lazy" />
+            <span class="gallery-number">07</span>
+            <span class="gallery-caption">Your voice</span>
+          </button>
+
+          <button class="gallery-item tall reveal" data-index="7" type="button">
+            <img src="assets/images/8.jpg" alt="Kenangan 8" loading="lazy" />
+            <span class="gallery-number">08</span>
+            <span class="gallery-caption">Beautiful colors</span>
+          </button>
+
+          <button class="gallery-item reveal" data-index="8" type="button">
+            <img src="assets/images/9.jpg" alt="Kenangan 9" loading="lazy" />
+            <span class="gallery-number">09</span>
+            <span class="gallery-caption">Given time</span>
+          </button>
+
+          <button class="gallery-item reveal" data-index="9" type="button">
+            <img src="assets/images/10.jpg" alt="Kenangan 10" loading="lazy" />
+            <span class="gallery-number">10</span>
+            <span class="gallery-caption">Never forget</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="letter-section">
+        <div class="letter-light"></div>
+
+        <article class="letter-card reveal">
+          <div class="letter-mark">♥</div>
+          <p class="eyebrow">FOR MY FAVORITE PERSON</p>
+
+          <h2>Kalau suatu hari kita melihat ini lagi...</h2>
+
+          <p>
+            Aku ingin kita ingat bahwa pernah ada hari-hari sederhana yang
+            terasa istimewa hanya karena kita menjalaninya bersama.
+          </p>
+
+          <p>
+            Terima kasih sudah hadir, memberi warna, dan menjadi bagian dari
+            banyak kenangan yang tidak ingin kulupakan.
+          </p>
+
+          <p class="signature">
+            — dari seseorang yang menyimpan kamu dalam ceritanya
+          </p>
+        </article>
+      </section>
+
+      <section class="ending">
+        <div class="ending-images" aria-hidden="true">
+          <img
+            src="assets/images/2.jpg"
+            class="ending-1"
+            alt=""
+            loading="lazy"
+          />
+          <img
+            src="assets/images/5.jpg"
+            class="ending-2"
+            alt=""
+            loading="lazy"
+          />
+          <img
+            src="assets/images/8.jpg"
+            class="ending-3"
+            alt=""
+            loading="lazy"
+          />
+          <img
+            src="assets/images/10.jpg"
+            class="ending-4"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+
+        <div class="ending-overlay"></div>
+
+        <div class="ending-content reveal">
+          <p class="eyebrow">EVEN WHEN THE SONG ENDS</p>
+          <h2>
+            Jangan lupakan
+            <span>cerita kita.</span>
+          </h2>
+          <p class="ending-copy">
+            Sebab dari semua warna yang pernah datang, kamu adalah salah satu
+            yang paling ingin aku ingat.
+          </p>
+          <div class="ending-heart">♥</div>
+        </div>
+      </section>
+    </main>
+
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+      <button
+        id="lightboxClose"
+        class="lightbox-close"
+        type="button"
+        aria-label="Tutup foto"
+      >
+        ×
+      </button>
+      <button
+        id="lightboxPrev"
+        class="lightbox-nav lightbox-prev"
+        type="button"
+        aria-label="Foto sebelumnya"
+      >
+        ‹
+      </button>
+      <img id="lightboxImage" src="" alt="Foto kenangan diperbesar" />
+      <button
+        id="lightboxNext"
+        class="lightbox-nav lightbox-next"
+        type="button"
+        aria-label="Foto selanjutnya"
+      >
+        ›
+      </button>
+      <p id="lightboxCounter" class="lightbox-counter">01 / 10</p>
+    </div>
+
+    <audio id="song" preload="metadata">
+      <source src="assets/audio/monokrom.mp3" type="audio/mpeg" />
+    </audio>
+  </body>
+</html>
